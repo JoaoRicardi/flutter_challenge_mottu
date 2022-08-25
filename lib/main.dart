@@ -7,6 +7,6 @@ import 'package:flutter_challenge/src/core/di/di_handler_imp.dart';
   DIHandlerImp()
     .init();
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 

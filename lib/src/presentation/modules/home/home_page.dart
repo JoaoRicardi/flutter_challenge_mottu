@@ -1,48 +1,120 @@
 import 'package:flutter/material.dart';
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+import 'package:flutter_challenge/src/core/base/widget.dart';
+import 'package:flutter_challenge/src/core/channel/connectivity_channel.dart';
+import 'package:flutter_challenge/src/core/di/di_handler.dart';
+import 'package:flutter_challenge/src/core/di/di_handler_imp.dart';
 
-  final String title;
+class HomePage extends StatefulWidget {
+
+  static const String route = '/';
+
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _HomePageState extends State<HomePage>{
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  final IDIHandler _di = DIHandlerImp();
+
+  var available = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: MottuAppBar(),
       body: Center(
         child: Column(
-
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            Text('Permitir que o app exiba o status da sua conexão ?'),
+            Switch(
+              value: available,
+              onChanged: (bool value){
+                var connetionHandler = _di.get<ConnectivityEventChannel>();
+
+                if(value){
+                  connetionHandler.listenTo();
+                }
+                else{
+                  connetionHandler.reset();
+                }
+
+                setState(() {
+                  available = value;
+                });
+              }
+            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+}
+
+
+
+class MottuAppBar extends StatelessWidget with BaseWidgetStateless  implements PreferredSizeWidget {
+
+  MottuAppBar({Key? key}) : super(key: key);
+
+  get connectionHandler => get<ConnectivityEventChannel>();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        children: [
+          StreamBuilder<Connection?>(
+              stream: connectionHandler.controller?.stream,
+              builder: (context, snapshot) {
+                return Visibility(
+                  visible: snapshot.data != null ||  snapshot.data != Connection.notListening,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).viewPadding.top
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: 40,
+                      color: getConnectionColor(snapshot.data),
+                      child: Center(
+                        child: Text(
+                          snapshot.data?.name.toString() ?? "",
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }
+          ),
+        ],
       ),
     );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(72);
+
+
+  Color getConnectionColor(Connection?  connection){
+    switch(connection){
+      case Connection.wifi:
+        return Colors.yellow;
+      case Connection.cellular:
+        return Colors.blueAccent;
+      case Connection.disconnected:
+        return Colors.red;
+      case Connection.unknown:
+        return Colors.pink;
+      case Connection.notListening:
+        return Colors.transparent;
+      default:
+        return Colors.transparent;
+    }
+
+
   }
 }

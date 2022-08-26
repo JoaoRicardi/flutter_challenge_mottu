@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/src/core/base/widget.dart';
 import 'package:flutter_challenge/src/presentation/modules/airplane/airplane_page.dart';
+import 'package:flutter_challenge/src/presentation/modules/connection/controller/connection_controller.dart';
 import 'package:flutter_challenge/src/presentation/modules/welcome/welcome_page.dart';
 import 'package:flutter_challenge/src/presentation/widgtes/asset_handler.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ConnectionPage extends StatelessWidget with BaseWidgetStateless{
 
   static const String route = '/connection';
 
   ConnectionPage({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,14 @@ class ConnectionPage extends StatelessWidget with BaseWidgetStateless{
             Row(
               children: [
                 const Expanded(child: Text('Permito o compatilhamento de dados de rede')),
-                Switch(value: true, onChanged: (value){})
+                Observer(
+                  builder: (context) {
+                    return Switch(
+                      value: controller.connectionAuth,
+                      onChanged: (value) => controller.setAuth(value)
+                    );
+                  }
+                )
               ],
             ),
             const Spacer(),
@@ -54,7 +64,8 @@ class ConnectionPage extends StatelessWidget with BaseWidgetStateless{
       bottomNavigationBar: MottuButton(
         label: "Próximo",
         isOnBottomNav: true,
-        onTap: (){
+        onTap: () async {
+          await controller.savePref();
           navigationHandler.push(AirplanePage.route);
         },
       ),

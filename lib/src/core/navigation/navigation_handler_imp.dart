@@ -81,4 +81,9 @@ class NavigationHandlerImp implements INavigationHandler{
     return appGlobalKey.currentState!.context;
   }
 
+  @override
+  Future<T?>? pushReplacement<T extends Object?>(String route, {Object? arguments}) {
+    return appGlobalKey.currentState?.pushReplacementNamed(route,result: arguments);
+  }
+
 }

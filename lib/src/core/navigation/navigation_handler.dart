@@ -12,6 +12,11 @@ abstract class INavigationHandler {
         Object? arguments,
       });
 
+  Future<T?>? pushReplacement<T extends Object?>(
+      String route, {
+        Object? arguments,
+      });
+
   pop<T extends Object?>([
     T? result,
   ]);

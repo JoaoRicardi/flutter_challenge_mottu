@@ -1,4 +1,4 @@
-import 'package:flutter_challenge/src/domain/repository/prefs/pref_repository.dart';
+import 'package:flutter_challenge/src/core/channel/base/base_stream.dart';
 import 'package:mobx/mobx.dart';
 
 part 'connection_controller.g.dart';
@@ -7,22 +7,30 @@ class ConnectionController = _ConnectionController with _$ConnectionController;
 
 abstract class _ConnectionController with Store {
 
-  final IPrefRepository _prefRepository;
+  final BaseStream _connectivityStreamHandler;
 
-  _ConnectionController(this._prefRepository);
+  _ConnectionController(this._connectivityStreamHandler);
 
   @observable
   bool connectionAuth = false;
 
-
   @action
-  setAuth(bool value){
-    connectionAuth = value;
+  changeStatus(bool value){
+     connectionAuth = value;
+
+     if(connectionAuth){
+       _connectivityStreamHandler.listenTo();
+     }
+     else{
+       _connectivityStreamHandler.reset();
+     }
+    // if(_connectivityStreamHandler.alreadyInit){
+    //   _connectivityStreamHandler.reset();
+    // }
+    // else{
+    //   _connectivityStreamHandler.listenTo();
+    // }
   }
 
-  @action
-  savePref(){
-    //save pref
-  }
 
 }

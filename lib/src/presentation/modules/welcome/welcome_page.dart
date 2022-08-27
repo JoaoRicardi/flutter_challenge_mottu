@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_challenge/src/core/base/widget.dart';
 import 'package:flutter_challenge/src/presentation/modules/connection/connection_page.dart';
 import 'package:flutter_challenge/src/presentation/widgtes/asset_handler.dart';
+import 'package:flutter_challenge/src/presentation/widgtes/button.dart';
 
 class WelcomePage extends StatelessWidget with BaseWidgetStateless {
 
-  static const String route = '/welcome';
+  static const int position = 0;
 
-  WelcomePage({Key? key}) : super(key: key);
+  final PageController pageController;
+
+  WelcomePage({
+    Key? key,
+    required this.pageController
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,44 +52,8 @@ class WelcomePage extends StatelessWidget with BaseWidgetStateless {
         label: "Próximo",
         isOnBottomNav: true,
         onTap: (){
-          navigationHandler.push(ConnectionPage.route);
+          pageController.jumpToPage(ConnectionPage.position);
         },
-      ),
-    );
-  }
-}
-
-class MottuButton extends StatelessWidget {
-
-  final String label;
-  final Function()? onTap;
-  final bool isOnBottomNav;
-
-  const MottuButton({
-    Key? key,
-    required this.label,
-    this.onTap,
-    this.isOnBottomNav = false
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var paddingBottom =  MediaQuery.of(context).viewPadding.bottom;
-    return Padding(
-      padding: isOnBottomNav ? EdgeInsets.only(
-        left: 20,
-        right: 20,
-        bottom: paddingBottom != 0.0 ? paddingBottom : 20
-      ): EdgeInsets.zero,
-      child: ElevatedButton(
-        onPressed: onTap,
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Color(0xFF222222))
-        ),
-        child: Text(label,style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w500
-        ),)
       ),
     );
   }

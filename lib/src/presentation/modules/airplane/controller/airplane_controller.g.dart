@@ -29,22 +29,11 @@ mixin _$AirplaneController on _AirplaneController, Store {
       ActionController(name: '_AirplaneController', context: context);
 
   @override
-  dynamic setAuth(bool value) {
+  dynamic changeStatus(bool value) {
     final _$actionInfo = _$_AirplaneControllerActionController.startAction(
-        name: '_AirplaneController.setAuth');
+        name: '_AirplaneController.changeStatus');
     try {
-      return super.setAuth(value);
-    } finally {
-      _$_AirplaneControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic savePref() {
-    final _$actionInfo = _$_AirplaneControllerActionController.startAction(
-        name: '_AirplaneController.savePref');
-    try {
-      return super.savePref();
+      return super.changeStatus(value);
     } finally {
       _$_AirplaneControllerActionController.endAction(_$actionInfo);
     }

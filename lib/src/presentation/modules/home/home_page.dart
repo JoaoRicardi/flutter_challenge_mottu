@@ -1,163 +1,137 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_challenge/src/core/base/widget.dart';
-import 'package:flutter_challenge/src/core/channel/connectivity_channel.dart';
-import 'package:flutter_challenge/src/core/di/di_handler.dart';
-import 'package:flutter_challenge/src/core/di/di_handler_imp.dart';
+import 'package:flutter_challenge/src/core/channel/airplane/airplane_stream_channel.dart';
 
 class HomePage extends StatefulWidget {
 
-  static const String route = '/';
+  static const int position = 3;
 
-  const HomePage({Key? key}) : super(key: key);
+  final PageController pageController;
+
+  const HomePage({
+    Key? key,
+    required this.pageController
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>{
+class _HomePageState extends State<HomePage> {
 
-  final IDIHandler _di = DIHandlerImp();
+  // var clicked1 = false;
+  // var clicked2 = false;
+  //
+  // var airplaneMethodChannel = AirPlaneMethodChannel();
+  // var airplaneStreamChannel = AirPlaneStreamChannel();
+  //
+  // var connectivityChannel = ConnectivityStreamChannel();
+  //
+  // var batteryText = '';
 
-  var available = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MottuAppBar(),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Permitir que o app exiba o status da sua conexão ?'),
-            Switch(
-              value: available,
-              onChanged: (bool value){
-                var connetionHandler = _di.get<ConnectivityEventChannel>();
-
-                if(value){
-                  connetionHandler.listenTo();
-                }
-                else{
-                  connetionHandler.reset();
-                }
-
-                setState(() {
-                  available = value;
-                });
-              }
-            )
+            // ElevatedButton(
+            //   onPressed: (){
+            //     if(clicked1){
+            //       //para desligar
+            //       airplaneMethodChannel.stopListeningToAirPlaneStatus();
+            //       airplaneStreamChannel.reset();
+            //     }
+            //     else{
+            //       //todo caso seja a primeira vez
+            //       airplaneMethodChannel.startListeningToAirPlaneStatus();
+            //       airplaneStreamChannel.listenTo();
+            //     }
+            //
+            //     setState(() {
+            //       clicked1 = !clicked1;
+            //     });
+            //   },
+            //   child: Text(clicked1 ? 'Desligar' : 'Test air plane mode')
+            // ),
+            // ElevatedButton(
+            //     onPressed: (){
+            //       if(clicked2){
+            //         //para desligar
+            //         connectivityChannel.listenTo();
+            //       }
+            //       else{
+            //         connectivityChannel.reset();
+            //       }
+            //
+            //       setState(() {
+            //         clicked2 = !clicked2;
+            //       });
+            //     },
+            //     child: Text(clicked1 ? 'Desligar' : 'Teste de conexão')
+            // ),
+            // Text(batteryText,style: const TextStyle( fontSize: 22),),
+            // ElevatedButton(
+            //   onPressed: () async {
+            //     var batteryMethod = BatteryMethodChannel();
+            //
+            //     var res = await batteryMethod.getBattery();
+            //
+            //
+            //     setState(() {
+            //       batteryText = "$res funciona";
+            //     });
+            //   },
+            //   child: const Text("Pegar valor da service")
+            // )
           ],
         ),
       ),
-    );
-  }
-}
-
-
-
-class MottuAppBar extends StatelessWidget with BaseWidgetStateless  implements PreferredSizeWidget {
-
-  MottuAppBar({Key? key}) : super(key: key);
-
-  get connectionHandler => get<ConnectivityEventChannel>();
-
-  var airplaneChannel = AirPlaneChannel()..listenTo();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        children: [
-          StreamBuilder<AirplaneMode?>(//Connection?>(
-              stream: airplaneChannel.controller?.stream,//connectionHandler.controller?.stream,
-              builder: (context, snapshot) {
-                return Visibility(
-                  visible: snapshot.data != null,//||  snapshot.data != Connection.notListening,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).viewPadding.top
-                    ),
-                    child: Container(
-                      width: double.infinity,
-                      height: 40,
-                      color: Colors.orange,//getConnectionColor(snapshot.data),
-                      child: Center(
-                        child: Text(
-                          snapshot.data?.name.toString() ?? "",
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }
-          ),
-        ],
-      ),
+      // floatingActionButton: StreamBuilder(
+      //     stream: airplaneStreamChannel.controller?.stream,
+      //     builder: (context, snapshot) {
+      //       if(snapshot.data != null && snapshot.data is AirplaneMode){
+      //         return FloatingActionButton(
+      //           backgroundColor: getColor(snapshot.data as AirplaneMode),
+      //           onPressed: () {
+      //           },
+      //           child: getIcon(snapshot.data as AirplaneMode),
+      //         );
+      //       }
+      //       return const SizedBox();
+      //     }),
     );
   }
 
-  @override
-  Size get preferredSize => const Size.fromHeight(72);
-
-
-  Color getConnectionColor(Connection?  connection){
-    switch(connection){
-      case Connection.wifi:
-        return Colors.yellow;
-      case Connection.cellular:
-        return Colors.blueAccent;
-      case Connection.disconnected:
-        return Colors.red;
-      case Connection.unknown:
-        return Colors.pink;
-      case Connection.notListening:
-        return Colors.transparent;
+  Widget getIcon(AirplaneMode? mode) {
+    switch (mode) {
+      case AirplaneMode.ON:
+        return const Icon(Icons.airplanemode_active);
+      case AirplaneMode.OFF:
+        return const Icon(Icons.airplanemode_inactive_outlined);
+      case AirplaneMode.DESCONHECIDO:
+        return const Icon(Icons.warning);
       default:
-        return Colors.transparent;
+        return const Icon(Icons.cancel);
     }
+  }
 
-
+  Color getColor(AirplaneMode? mode) {
+    switch (mode) {
+      case AirplaneMode.ON:
+        return Colors.orange;
+      case AirplaneMode.OFF:
+        return Colors.green;
+      case AirplaneMode.DESCONHECIDO:
+        return Colors.grey;
+      default:
+        return Colors.red;
+    }
   }
 }
 
-class AirPlaneChannel {
-  StreamController<AirplaneMode?>? controller;
-
-  reset(){
-    controller?.sink.add(null);
-    controller?.sink.close();
-  }
 
 
-  Stream stream = const EventChannel("platform_channel_events/airplaneMode")
-      .receiveBroadcastStream()
-      .distinct();
-
-  listenTo(){
-    controller = StreamController();
-
-    stream.listen((event) {
-      if(event != null){
-        if(!(controller?.isClosed ?? true)) {
-          if(event is bool){
-            controller?.sink.add(event ? AirplaneMode.ON : AirplaneMode.OFF);
-          }
-          else {
-            controller?.sink.add(AirplaneMode.DESCONHECIDO);
-          }
-        }
-      }
-    });
-  }
-
-}
-
-enum AirplaneMode{
-  ON,
-  OFF,
-  DESCONHECIDO
-}

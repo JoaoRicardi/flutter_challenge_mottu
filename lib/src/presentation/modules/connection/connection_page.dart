@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/src/core/base/widget.dart';
+import 'package:flutter_challenge/src/core/di/di_handler_imp.dart';
 import 'package:flutter_challenge/src/presentation/modules/airplane/airplane_page.dart';
 import 'package:flutter_challenge/src/presentation/modules/connection/controller/connection_controller.dart';
-import 'package:flutter_challenge/src/presentation/modules/welcome/welcome_page.dart';
 import 'package:flutter_challenge/src/presentation/widgtes/asset_handler.dart';
+import 'package:flutter_challenge/src/presentation/widgtes/button.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ConnectionPage extends StatelessWidget with BaseWidgetStateless{
 
-  static const String route = '/connection';
+  static const int position = 1;
 
-  ConnectionPage({Key? key}) : super(key: key);
+  final PageController pageController;
 
+  ConnectionPage({
+    Key? key,
+    required this.pageController
+  }) : super(key: key);
+
+  final controller = DIHandlerImp().get<ConnectionController>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,7 @@ class ConnectionPage extends StatelessWidget with BaseWidgetStateless{
         child: Column(
           children: [
             MottuAssetHandler(
-              assset: constants.assets.airplane,
+              assset: constants.assets.signal,
               height: MediaQuery.of(context).size.width,
             ),
             const Text(
@@ -51,7 +58,7 @@ class ConnectionPage extends StatelessWidget with BaseWidgetStateless{
                   builder: (context) {
                     return Switch(
                       value: controller.connectionAuth,
-                      onChanged: (value) => controller.setAuth(value)
+                      onChanged: (value) => controller.changeStatus(value)
                     );
                   }
                 )
@@ -65,8 +72,7 @@ class ConnectionPage extends StatelessWidget with BaseWidgetStateless{
         label: "Próximo",
         isOnBottomNav: true,
         onTap: () async {
-          await controller.savePref();
-          navigationHandler.push(AirplanePage.route);
+          pageController.jumpToPage(AirplanePage.position);
         },
       ),
     );

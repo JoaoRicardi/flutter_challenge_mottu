@@ -1,3 +1,4 @@
+import 'package:flutter_challenge/src/core/channel/base/base_stream.dart';
 import 'package:mobx/mobx.dart';
 
 part 'airplane_controller.g.dart';
@@ -6,17 +7,21 @@ class AirplaneController = _AirplaneController with _$AirplaneController;
 
 abstract class _AirplaneController with Store {
 
+  final BaseStream _airplaneStreamHandler;
+
   @observable
   bool airplaneAuth = false;
 
-  @action
-  setAuth(bool value){
-    airplaneAuth = value;
-  }
+  _AirplaneController(this._airplaneStreamHandler);
 
   @action
-  savePref(){
-    //save pref
+  changeStatus(bool value){
+    // airplaneAuth = value;
+    // if(_airplaneStreamHandler.alreadyInit){
+    //   _airplaneStreamHandler.reset();
+    // }
+    // else{
+    //   _airplaneStreamHandler.listenTo();
+    // }
   }
-
 }

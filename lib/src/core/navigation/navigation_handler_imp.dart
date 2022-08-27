@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/src/core/navigation/navigation_handler.dart';
-import 'package:flutter_challenge/src/presentation/modules/airplane/airplane_page.dart';
-import 'package:flutter_challenge/src/presentation/modules/battery/battery_page.dart';
-import 'package:flutter_challenge/src/presentation/modules/connection/connection_page.dart';
-import 'package:flutter_challenge/src/presentation/modules/home/home_page.dart';
-import 'package:flutter_challenge/src/presentation/modules/welcome/welcome_page.dart';
+import 'package:flutter_challenge/src/presentation/modules/main/main_page.dart';
 
 class NavigationHandlerImp implements INavigationHandler{
 
@@ -14,43 +10,11 @@ class NavigationHandlerImp implements INavigationHandler{
   @override
   Route appRoutes(RouteSettings settings) {
     switch(settings.name){
-      case HomePage.route:
+      case MainPage.route:
         return MaterialPageRoute(
           settings: settings,
           builder: (_) {
-            return const HomePage();
-          },
-        );
-
-      case WelcomePage.route:
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (_) {
-            return WelcomePage();
-          },
-        );
-
-      case ConnectionPage.route:
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (_) {
-            return ConnectionPage();
-          },
-        );
-
-      case AirplanePage.route:
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (_) {
-            return AirplanePage();
-          },
-        );
-
-      case BatteryPage.route:
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (_) {
-            return BatteryPage();
+            return MainPage();
           },
         );
 

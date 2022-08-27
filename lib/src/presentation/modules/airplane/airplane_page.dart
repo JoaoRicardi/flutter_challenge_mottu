@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/src/core/base/widget.dart';
+import 'package:flutter_challenge/src/core/di/di_handler_imp.dart';
 import 'package:flutter_challenge/src/presentation/modules/airplane/controller/airplane_controller.dart';
-import 'package:flutter_challenge/src/presentation/modules/battery/battery_page.dart';
-import 'package:flutter_challenge/src/presentation/modules/welcome/welcome_page.dart';
+import 'package:flutter_challenge/src/presentation/modules/home/home_page.dart';
 import 'package:flutter_challenge/src/presentation/widgtes/asset_handler.dart';
+import 'package:flutter_challenge/src/presentation/widgtes/button.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class AirplanePage extends StatelessWidget with BaseWidgetStateless {
 
-  static const String route = '/airplane';
+  static const int position = 2;
 
-  AirplanePage({Key? key}) : super(key: key);
+  final PageController pageController;
 
-  final controller = AirplaneController();
+  AirplanePage({
+    Key? key,
+    required this.pageController
+  }) : super(key: key);
+
+  final controller = DIHandlerImp().get<AirplaneController>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,7 @@ class AirplanePage extends StatelessWidget with BaseWidgetStateless {
         child: Column(
           children: [
             MottuAssetHandler(
-              assset: constants.assets.signal,
+              assset: constants.assets.airplane,
               height: MediaQuery.of(context).size.width,
             ),
             const Text(
@@ -52,7 +58,7 @@ class AirplanePage extends StatelessWidget with BaseWidgetStateless {
                   builder: (context) {
                     return Switch(
                         value: controller.airplaneAuth,
-                        onChanged: (value) => controller.setAuth(value)
+                        onChanged: (value) => controller.changeStatus(value)
                     );
                   }
                 )
@@ -66,8 +72,7 @@ class AirplanePage extends StatelessWidget with BaseWidgetStateless {
         label: "Próximo",
         isOnBottomNav: true,
         onTap: () async {
-          await controller.savePref();
-          navigationHandler.push(BatteryPage.route);
+          pageController.jumpToPage(HomePage.position);
         },
       ),
     );

@@ -9,9 +9,10 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
        >
-       <service android:name=".BatteryCalculationService" android:exported="true" android:enabled="true"
+       <service android:name=".BatteryCalculationService" android:exported="false" android:enabled="true"
            android:launchMode="singleTask"
             />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

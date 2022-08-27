@@ -29,22 +29,11 @@ mixin _$ConnectionController on _ConnectionController, Store {
       ActionController(name: '_ConnectionController', context: context);
 
   @override
-  dynamic setAuth(bool value) {
+  dynamic changeStatus(bool value) {
     final _$actionInfo = _$_ConnectionControllerActionController.startAction(
-        name: '_ConnectionController.setAuth');
+        name: '_ConnectionController.changeStatus');
     try {
-      return super.setAuth(value);
-    } finally {
-      _$_ConnectionControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic savePref() {
-    final _$actionInfo = _$_ConnectionControllerActionController.startAction(
-        name: '_ConnectionController.savePref');
-    try {
-      return super.savePref();
+      return super.changeStatus(value);
     } finally {
       _$_ConnectionControllerActionController.endAction(_$actionInfo);
     }

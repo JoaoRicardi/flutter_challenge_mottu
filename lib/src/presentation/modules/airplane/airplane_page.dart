@@ -5,6 +5,7 @@ import 'package:flutter_challenge/src/presentation/modules/airplane/controller/a
 import 'package:flutter_challenge/src/presentation/modules/home/home_page.dart';
 import 'package:flutter_challenge/src/presentation/widgtes/asset_handler.dart';
 import 'package:flutter_challenge/src/presentation/widgtes/button.dart';
+import 'package:flutter_challenge/src/presentation/widgtes/configuration_item.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class AirplanePage extends StatelessWidget with BaseWidgetStateless {
@@ -43,7 +44,7 @@ class AirplanePage extends StatelessWidget with BaseWidgetStateless {
             ),
             const SizedBox(height: 24,),
             const Text(
-              'Caso o seu celular esteja em modo avião.',
+              'Caso habilitado, ao trocar o status do modo avião iremos exibir pra você.',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 16,
@@ -51,18 +52,14 @@ class AirplanePage extends StatelessWidget with BaseWidgetStateless {
               ),
             ),
             const Spacer(),
-            Row(
-              children: [
-                const Expanded(child: Text('Permito o compatilhamento sobre o modo do celular.')),
-                Observer(
-                  builder: (context) {
-                    return Switch(
-                        value: controller.airplaneAuth,
-                        onChanged: (value) => controller.changeStatus(value)
-                    );
-                  }
-                )
-              ],
+            Observer(
+                builder: (context) {
+                  return ConfigurationItem(
+                    label: 'Permito o compatilhamento sobre o modo do celular.',
+                    value: controller.airplaneAuth,
+                    onChange: (value) => controller.changeStatus(value),
+                  );
+                }
             ),
             const Spacer(),
           ],

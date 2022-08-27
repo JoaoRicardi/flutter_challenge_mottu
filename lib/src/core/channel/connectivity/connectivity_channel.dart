@@ -16,7 +16,7 @@ class ConnectivityStreamChannel implements BaseStream{
   StreamController controller = StreamController();
 
   @override
-  late StreamSubscription _subscription;
+  StreamSubscription? subscription;
 
   bool _alreadyInit = false;
 
@@ -28,21 +28,18 @@ class ConnectivityStreamChannel implements BaseStream{
   @override
   reset(){
     controller.sink.add(null);
-    _subscription.pause();
+    subscription?.pause();
   }
 
   @override
   listenTo(){
-
     if(_alreadyInit){
-      _subscription.resume();
+      subscription?.resume();
     }
     else{
-      _subscription = stream.listen((event) {
-        print("ihuu  $event rolou");
-      });
+      subscription = stream.listen(null);
 
-      _subscription.onData((data) {
+      subscription?.onData((data) {
         if(data != null){
           controller.sink.add(intToConnection(data as int));
         }

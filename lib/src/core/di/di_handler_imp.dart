@@ -1,13 +1,13 @@
 import 'package:flutter_challenge/src/core/channel/airplane/airplane_method_channel.dart';
 import 'package:flutter_challenge/src/core/channel/airplane/airplane_stream_channel.dart';
 import 'package:flutter_challenge/src/core/channel/base/base_stream.dart';
-import 'package:flutter_challenge/src/core/channel/battery/battery_method_channel.dart';
 import 'package:flutter_challenge/src/core/channel/connectivity/connectivity_channel.dart';
 import 'package:flutter_challenge/src/core/di/di_handler.dart';
 import 'package:flutter_challenge/src/core/navigation/navigation_handler.dart';
 import 'package:flutter_challenge/src/core/navigation/navigation_handler_imp.dart';
 import 'package:flutter_challenge/src/presentation/modules/airplane/controller/airplane_controller.dart';
 import 'package:flutter_challenge/src/presentation/modules/connection/controller/connection_controller.dart';
+import 'package:flutter_challenge/src/presentation/modules/home/controller/home_controller.dart';
 import 'package:flutter_challenge/src/presentation/modules/main/controller/main_controller.dart';
 import 'package:get_it/get_it.dart';
 
@@ -30,6 +30,11 @@ class DIHandlerImp implements IDIHandler {
     _getIt.registerFactory<MainController>(() => MainController(
         _getIt.get(instanceName: ConnectivityStreamChannel.instanceName),
         _getIt.get(instanceName: AirPlaneStreamChannel.instanceName)));
+
+    _getIt.registerFactory<HomeController>(() => HomeController(
+        _getIt.get(instanceName: ConnectivityStreamChannel.instanceName),
+        _getIt.get(instanceName: AirPlaneStreamChannel.instanceName),
+    ));
   }
 
   _injectDomainModule() {}
@@ -40,10 +45,9 @@ class DIHandlerImp implements IDIHandler {
 
     _getIt
         .registerFactory<IAirPlaneMethodChannel>(() => AirPlaneMethodChannel());
-    _getIt.registerFactory<IBatteryMethodChannel>(() => BatteryMethodChannel());
     _getIt.registerLazySingleton<BaseStream>(() => ConnectivityStreamChannel(),
         instanceName: ConnectivityStreamChannel.instanceName);
-    _getIt.registerLazySingleton<BaseStream>(() => AirPlaneStreamChannel(),
+    _getIt.registerLazySingleton<BaseStream>(() => AirPlaneStreamChannel(_getIt.get()),
         instanceName: AirPlaneStreamChannel.instanceName);
   }
 

@@ -2,17 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.flutter_challenge">
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
    <application
         android:label="flutter_challenge"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
        >
-       <service android:name=".BatteryCalculationService" android:exported="false" android:enabled="true"
-           android:launchMode="singleTask"
-            />
-
         <activity
             android:name=".MainActivity"
             android:exported="true"

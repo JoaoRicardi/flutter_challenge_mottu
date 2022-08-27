@@ -16,12 +16,13 @@ abstract class _AirplaneController with Store {
 
   @action
   changeStatus(bool value){
-    // airplaneAuth = value;
-    // if(_airplaneStreamHandler.alreadyInit){
-    //   _airplaneStreamHandler.reset();
-    // }
-    // else{
-    //   _airplaneStreamHandler.listenTo();
-    // }
+    airplaneAuth = value;
+
+    if(airplaneAuth){
+      _airplaneStreamHandler.listenTo();
+    }
+    else{
+      _airplaneStreamHandler.reset();
+    }
   }
 }

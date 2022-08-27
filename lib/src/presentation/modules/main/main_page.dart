@@ -35,22 +35,16 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ConnectionAppBar(
-        controller: controller,
+        stream: controller.connectivityStreamHandler.controller.stream,
       ),
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: getPages(),
       ),
-      // floatingActionButton: StreamBuilder(
-      //   stream: controller.,
-      //   builder: (context, snapshot) {
-      //     if(snapshot.data != null && snapshot.data is AirplaneMode) {
-      //       return AirplaneModeFloating(mode: snapshot.data as AirplaneMode,);
-      //     }
-      //     return const SizedBox();
-      //   }
-      // ),
+      floatingActionButton: AirplaneModeFloating(
+        stream: controller.airplaneModeStreamHandler.controller.stream,
+      )
     );
   }
 

@@ -1,7 +1,6 @@
 package com.example.flutter_challenge
 
 import com.example.flutter_challenge.channel.method.airplane.AirPlaneMethodChannel
-import com.example.flutter_challenge.channel.method.battery.BatteryMethodChannel
 import com.example.flutter_challenge.channel.stream.airplane.AirPlaneModeChannelStream
 import com.example.flutter_challenge.channel.stream.connectivity.ConnectivityChannelStream
 import io.flutter.embedding.android.FlutterActivity
@@ -19,15 +18,9 @@ class MainActivity: FlutterActivity() {
 
         handleConnectionType(flutterEngine = flutterEngine)
 
-        handleBatteryChannel(flutterEngine = flutterEngine)
     }
 
 
-    private fun handleBatteryChannel(flutterEngine: FlutterEngine){
-        val notification = BatteryMethodChannel(this)
-
-        notification.setCustomMethodCallHandler(flutterEngine)
-    }
 
 
     private fun handleAirPlaneMode(flutterEngine: FlutterEngine){

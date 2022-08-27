@@ -3,18 +3,18 @@ import 'package:flutter_challenge/src/core/base/widget.dart';
 import 'package:flutter_challenge/src/core/channel/connectivity/connectivity_channel.dart';
 import 'package:flutter_challenge/src/core/extensions/connection.dart';
 import 'package:flutter_challenge/src/presentation/modules/main/controller/main_controller.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+
 class ConnectionAppBar extends StatelessWidget
     with BaseWidgetStateless
     implements PreferredSizeWidget {
-  ConnectionAppBar({Key? key, required this.controller}) : super(key: key);
+  ConnectionAppBar({Key? key, required this.stream}) : super(key: key);
 
-  final MainController? controller;
+  final Stream? stream;
 
   @override
   Widget build(BuildContext context) {
     return  StreamBuilder(
-        stream: controller?.connectivityStreamHandler.controller.stream,
+        stream: stream,//
         builder: (context, snapshot) {
           var connection = snapshot.data;
           if(connection != null && connection is Connection){

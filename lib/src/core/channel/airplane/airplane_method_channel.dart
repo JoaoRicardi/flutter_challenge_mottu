@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_challenge/src/core/channel/base/base_method.dart';
 
 abstract class IAirPlaneMethodChannel implements BaseMethodChannel {
-  Future startListeningToAirPlaneStatus();
-  Future stopListeningToAirPlaneStatus();
+  Future<bool?> startListeningToAirPlaneStatus();
+  Future<bool?> stopListeningToAirPlaneStatus();
 }
 
 class AirPlaneMethodChannel implements IAirPlaneMethodChannel {
@@ -18,21 +18,23 @@ class AirPlaneMethodChannel implements IAirPlaneMethodChannel {
   final String _stop = 'stop';
 
   @override
-  Future startListeningToAirPlaneStatus() async {
+  Future<bool?> startListeningToAirPlaneStatus() async {
     try{
-      var res = await channel.invokeMethod(_start);
-      return res;
+      return await channel.invokeMethod(_start) as bool;
     }catch(err){
       debugPrint(err.toString());
+
+      return null;
     }
   }
 
   @override
-  Future stopListeningToAirPlaneStatus() async {
+  Future<bool?> stopListeningToAirPlaneStatus() async {
     try{
-      return await channel.invokeMethod(_stop);
+      return await channel.invokeMethod(_stop)as bool;
     }catch(err){
       debugPrint(err.toString());
+      return null;
     }
   }
 

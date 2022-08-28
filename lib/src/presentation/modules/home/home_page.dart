@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_challenge/src/core/base/widget.dart';
 import 'package:flutter_challenge/src/core/channel/airplane/airplane_stream_channel.dart';
 import 'package:flutter_challenge/src/core/di/di_handler_imp.dart';
 import 'package:flutter_challenge/src/presentation/modules/home/controller/home_controller.dart';
@@ -21,9 +22,9 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with BaseWidgetStateful{
 
-  final controller = DIHandlerImp().get<HomeController>();
+  get controller => get<HomeController>();
 
   @override
   Widget build(BuildContext context) {

@@ -19,7 +19,7 @@ class ConnectionPage extends StatelessWidget with BaseWidgetStateless{
     required this.pageController
   }) : super(key: key);
 
-  final controller = DIHandlerImp().get<ConnectionController>();
+  get controller => get<ConnectionController>();
 
   @override
   Widget build(BuildContext context) {

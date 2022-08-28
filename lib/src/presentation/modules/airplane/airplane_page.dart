@@ -19,7 +19,7 @@ class AirplanePage extends StatelessWidget with BaseWidgetStateless {
     required this.pageController
   }) : super(key: key);
 
-  final controller = DIHandlerImp().get<AirplaneController>();
+  get controller => get<AirplaneController>();
 
   @override
   Widget build(BuildContext context) {

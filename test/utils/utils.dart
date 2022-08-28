@@ -24,7 +24,4 @@ class TestUtils {
       ));
 
 
-  static T instanceOf<T extends Object>(){
-    return _diHandler.getIt<T>();
-  }
 }

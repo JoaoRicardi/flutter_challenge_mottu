@@ -1,4 +1,4 @@
-// import 'package:isow/src/domain/repository/cep/cep_repository.dart';
+import 'package:flutter_challenge/src/core/channel/airplane/airplane_method_channel.dart';
 import 'package:mocktail/mocktail.dart';
 
-// class CepRepositoryMock extends Mock implements ICepRepository{}
+class AirplaneModeMethodChannelMock extends Mock implements IAirPlaneMethodChannel{}

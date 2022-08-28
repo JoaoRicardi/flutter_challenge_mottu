@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_challenge/src/core/channel/airplane/airplane_method_channel.dart';
 import 'package:flutter_challenge/src/core/channel/base/base_stream.dart';
 
-class AirPlaneStreamChannel implements BaseStream{
+class AirPlaneStreamChannel implements BaseStream<AirplaneMode?>{
 
   final IAirPlaneMethodChannel methodChannel;
 
@@ -15,7 +15,7 @@ class AirPlaneStreamChannel implements BaseStream{
 
 
   @override
-  StreamController controller = StreamController();
+  StreamController<AirplaneMode?> controller = StreamController();
 
   @override
   StreamSubscription? subscription;
@@ -47,6 +47,9 @@ class AirPlaneStreamChannel implements BaseStream{
       subscription?.onData((data) {
         if(data != null && data is bool){
           controller.sink.add(data ? AirplaneMode.ON : AirplaneMode.OFF);
+        }
+        else{
+          controller.sink.add(AirplaneMode.DESCONHECIDO);
         }
       });
 

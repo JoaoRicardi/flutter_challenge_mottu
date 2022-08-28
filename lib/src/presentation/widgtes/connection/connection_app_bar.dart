@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/src/core/base/widget.dart';
-import 'package:flutter_challenge/src/core/channel/connectivity/connectivity_channel.dart';
+import 'package:flutter_challenge/src/core/channel/connectivity/connectivity_stream_channel.dart';
 import 'package:flutter_challenge/src/core/extensions/connection.dart';
 import 'package:flutter_challenge/src/presentation/modules/main/controller/main_controller.dart';
 

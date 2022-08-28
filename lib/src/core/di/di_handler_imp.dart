@@ -1,7 +1,7 @@
 import 'package:flutter_challenge/src/core/channel/airplane/airplane_method_channel.dart';
 import 'package:flutter_challenge/src/core/channel/airplane/airplane_stream_channel.dart';
 import 'package:flutter_challenge/src/core/channel/base/base_stream.dart';
-import 'package:flutter_challenge/src/core/channel/connectivity/connectivity_channel.dart';
+import 'package:flutter_challenge/src/core/channel/connectivity/connectivity_stream_channel.dart';
 import 'package:flutter_challenge/src/core/di/di_handler.dart';
 import 'package:flutter_challenge/src/core/navigation/navigation_handler.dart';
 import 'package:flutter_challenge/src/core/navigation/navigation_handler_imp.dart';
@@ -20,7 +20,6 @@ class DIHandlerImp implements IDIHandler {
   @override
   init() {
     _injectCoreModule();
-    _injectDomainModule();
     _injectPresentationModule();
   }
 
@@ -37,7 +36,6 @@ class DIHandlerImp implements IDIHandler {
     ));
   }
 
-  _injectDomainModule() {}
 
   _injectCoreModule() {
     _getIt.registerLazySingleton<INavigationHandler>(

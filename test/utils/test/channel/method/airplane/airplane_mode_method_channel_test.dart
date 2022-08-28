@@ -2,7 +2,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_challenge/src/core/channel/airplane/airplane_method_channel.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../utils.dart';
+import '../../../../utils.dart';
+
 
 void main(){
 

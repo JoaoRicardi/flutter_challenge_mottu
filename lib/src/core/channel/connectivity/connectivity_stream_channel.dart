@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_challenge/src/core/channel/base/base_stream.dart';
 
-class ConnectivityStreamChannel implements BaseStream{
+class ConnectivityStreamChannel implements BaseStream<Connection?>{
 
   static const String instanceName = 'connectivity_stream';
 
@@ -13,7 +13,7 @@ class ConnectivityStreamChannel implements BaseStream{
   static const unknown = 0xCC;
 
   @override
-  StreamController controller = StreamController();
+  StreamController<Connection?> controller = StreamController();
 
   @override
   StreamSubscription? subscription;
@@ -74,18 +74,10 @@ class ConnectivityStreamChannel implements BaseStream{
 
 
 
-/// Connection is an enum of supported network states
 enum Connection {
-  /// When connection state is [Constants.wifi]
   wifi,
-
-  /// When connection state is [Constants.cellular]
   cellular,
-
-  /// When connection state is [Constants.disconnected]
   disconnected,
-
-  /// When connection state is [Constants.unknown]
   unknown,
   notListening,
 }

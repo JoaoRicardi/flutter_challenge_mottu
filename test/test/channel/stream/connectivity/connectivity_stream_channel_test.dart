@@ -24,6 +24,7 @@ void main() {
               .handlePlatformMessage(_channel.name,
                   _channel.codec.encodeSuccessEnvelope(0xFF), (_) {});
         }
+        return null;
       });
 
       var res = await _channel.receiveBroadcastStream().first;
@@ -43,6 +44,7 @@ void main() {
               .handlePlatformMessage(_channel.name,
                   _channel.codec.encodeSuccessEnvelope(0xEE), (_) {});
         }
+        return null;
       });
 
       var res = await _channel.receiveBroadcastStream().first;
@@ -63,6 +65,7 @@ void main() {
               .handlePlatformMessage(_channel.name,
                   _channel.codec.encodeSuccessEnvelope(0xDD), (_) {});
         }
+        return null;
       });
 
       var res = await _channel.receiveBroadcastStream().first;
@@ -83,6 +86,7 @@ void main() {
               .handlePlatformMessage(_channel.name,
                   _channel.codec.encodeSuccessEnvelope(0xCC), (_) {});
         }
+        return null;
       });
 
       var res = await _channel.receiveBroadcastStream().first;

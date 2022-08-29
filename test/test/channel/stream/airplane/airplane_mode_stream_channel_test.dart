@@ -86,9 +86,8 @@ void main() {
           await ServicesBinding.instance?.defaultBinaryMessenger
               .handlePlatformMessage(_channel.name,
                   _channel.codec.encodeSuccessEnvelope("Unknow"), (_) {});
-        } else {
-          return null;
         }
+        return null;
       });
 
       streamChannel = AirPlaneStreamChannel(methodChannel);

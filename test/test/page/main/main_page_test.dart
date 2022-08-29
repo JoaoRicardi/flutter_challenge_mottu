@@ -31,7 +31,7 @@ main() {
 
       await tester.pumpWidget(
         TestUtils.buildTestableWidget(
-          widget: MainPage(),
+          widget: const MainPage(),
         ),
       );
 
@@ -61,7 +61,7 @@ main() {
 
       await tester.pumpWidget(
         TestUtils.buildTestableWidget(
-          widget: MainPage(),
+          widget: const MainPage(),
         ),
       );
 
@@ -91,7 +91,7 @@ main() {
 
       await tester.pumpWidget(
         TestUtils.buildTestableWidget(
-          widget: MainPage(),
+          widget: const MainPage(),
         ),
       );
 
@@ -123,7 +123,7 @@ main() {
 
       await tester.pumpWidget(
         TestUtils.buildTestableWidget(
-          widget: MainPage(),
+          widget: const MainPage(),
         ),
       );
 
@@ -152,7 +152,7 @@ main() {
 
       await tester.pumpWidget(
         TestUtils.buildTestableWidget(
-          widget: MainPage(),
+          widget: const MainPage(),
         ),
       );
 
@@ -181,7 +181,7 @@ main() {
 
       await tester.pumpWidget(
         TestUtils.buildTestableWidget(
-          widget: MainPage(),
+          widget: const MainPage(),
         ),
       );
 

@@ -32,9 +32,9 @@ void main() {
           await ServicesBinding.instance?.defaultBinaryMessenger
               .handlePlatformMessage(_channel.name,
                   _channel.codec.encodeSuccessEnvelope(true), (_) {});
-        } else {
-          return null;
         }
+
+        return null;
       });
 
       streamChannel = AirPlaneStreamChannel(methodChannel);
@@ -59,9 +59,9 @@ void main() {
           await ServicesBinding.instance?.defaultBinaryMessenger
               .handlePlatformMessage(_channel.name,
                   _channel.codec.encodeSuccessEnvelope(false), (_) {});
-        } else {
-          return null;
         }
+
+        return null;
       });
 
       streamChannel = AirPlaneStreamChannel(methodChannel);

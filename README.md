@@ -4,6 +4,11 @@
  - npm (8.6.0)
  -
  #### Como rodar o app:
+ Dentro da pasta do projeto rodar:
+ ```sh
+ npm install
+ ```
+
 O app utiliza flavor para gerenciar ambientes de desenvolvimento. Para que possamos alem de ter configurações especificas para cada. Para consultar flavors disponiveis podemos olhar o:
  no Android:
 ```sh
@@ -14,6 +19,13 @@ android/app/build.gradle
 project.pbxproj
 ```
 ou pelo Xcode (para melhor visualização).
+
+Exemplo:
+```sh
+flutter run --flavor qa
+
+flutter run --flavor prod
+```
 
 
 

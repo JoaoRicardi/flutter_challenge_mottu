@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_challenge/src/core/navigation/navigation_handler.dart';
 import 'package:flutter_challenge/src/presentation/modules/main/main_page.dart';
 
-class NavigationHandlerImp implements INavigationHandler{
-
+class NavigationHandlerImp implements INavigationHandler {
   @override
   GlobalKey<NavigatorState> appGlobalKey = GlobalKey();
 
   @override
   Route appRoutes(RouteSettings settings) {
-    switch(settings.name){
+    switch (settings.name) {
       case MainPage.route:
         return MaterialPageRoute(
           settings: settings,
           builder: (_) {
-            return MainPage();
+            return const MainPage();
           },
         );
 
@@ -36,9 +35,8 @@ class NavigationHandlerImp implements INavigationHandler{
 
   @override
   Future<T?> push<T extends Object?>(String route, {Object? arguments}) async {
-    return appGlobalKey.currentState?.pushNamed(route,arguments: arguments);
+    return appGlobalKey.currentState?.pushNamed(route, arguments: arguments);
   }
-
 
   @override
   BuildContext getContext() {
@@ -46,8 +44,9 @@ class NavigationHandlerImp implements INavigationHandler{
   }
 
   @override
-  Future<T?>? pushReplacement<T extends Object?>(String route, {Object? arguments}) {
-    return appGlobalKey.currentState?.pushReplacementNamed(route,result: arguments);
+  Future<T?>? pushReplacement<T extends Object?>(String route,
+      {Object? arguments}) {
+    return appGlobalKey.currentState
+        ?.pushReplacementNamed(route, result: arguments);
   }
-
 }

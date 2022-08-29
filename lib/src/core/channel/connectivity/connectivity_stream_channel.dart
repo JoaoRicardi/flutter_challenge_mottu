@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_challenge/src/core/channel/base/base_stream.dart';
 
-class ConnectivityStreamChannel implements BaseStream<Connection?>{
-
+class ConnectivityStreamChannel implements BaseStream<Connection?> {
   static const String instanceName = 'connectivity_stream';
 
   static const wifi = 0xFF;
@@ -12,44 +11,39 @@ class ConnectivityStreamChannel implements BaseStream<Connection?>{
   static const disconnected = 0xDD;
   static const unknown = 0xCC;
 
-  @override
-  StreamController<Connection?> controller = StreamController();
+  final StreamController<Connection?> _controller = StreamController();
 
   @override
   StreamSubscription? subscription;
 
   bool _alreadyInit = false;
 
-  @override
-  Stream stream = const EventChannel('flutter_challenge/connectivity')
+  final Stream _stream = const EventChannel('flutter_challenge/connectivity')
       .receiveBroadcastStream()
       .distinct();
 
   @override
-  reset(){
-    controller.sink.add(null);
+  reset() {
+    _controller.sink.add(null);
     subscription?.pause();
   }
 
   @override
-  listenTo(){
-    if(_alreadyInit){
+  listenTo() {
+    if (_alreadyInit) {
       subscription?.resume();
-    }
-    else{
-      subscription = stream.listen(null);
+    } else {
+      subscription = _stream.listen(null);
 
       subscription?.onData((data) {
-        if(data != null){
-          controller.sink.add(intToConnection(data as int));
+        if (data != null) {
+          _controller.sink.add(intToConnection(data as int));
         }
       });
-
     }
 
     _alreadyInit = true;
   }
-
 
   Connection intToConnection(int connectionInt) {
     var connection = Connection.unknown;
@@ -70,9 +64,11 @@ class ConnectivityStreamChannel implements BaseStream<Connection?>{
     return connection;
   }
 
+  @override
+  Stream<Connection?> getStream() {
+    return _controller.stream;
+  }
 }
-
-
 
 enum Connection {
   wifi,
@@ -81,4 +77,3 @@ enum Connection {
   unknown,
   notListening,
 }
-

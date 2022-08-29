@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/src/core/channel/connectivity/connectivity_stream_channel.dart';
 
@@ -21,7 +19,7 @@ extension ConnectionExtensions on Connection {
     }
   }
 
-  String getFormattedName(){
+  String getFormattedName() {
     switch (this) {
       case Connection.wifi:
         return "Wi-fi";
@@ -38,8 +36,7 @@ extension ConnectionExtensions on Connection {
     }
   }
 
-
-  IconData getIcon(){
+  IconData getIcon() {
     switch (this) {
       case Connection.wifi:
         return Icons.wifi;

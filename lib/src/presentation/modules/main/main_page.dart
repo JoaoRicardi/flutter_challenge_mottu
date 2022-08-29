@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_challenge/src/core/channel/airplane/airplane_stream_channel.dart';
-import 'package:flutter_challenge/src/core/di/di_handler_imp.dart';
+import 'package:flutter_challenge/src/core/base/base_widget.dart';
 import 'package:flutter_challenge/src/presentation/modules/airplane/airplane_page.dart';
 import 'package:flutter_challenge/src/presentation/modules/connection/connection_page.dart';
 import 'package:flutter_challenge/src/presentation/modules/home/home_page.dart';
@@ -10,23 +9,22 @@ import 'package:flutter_challenge/src/presentation/widgtes/airplane/airplane_mod
 import 'package:flutter_challenge/src/presentation/widgtes/connection/connection_app_bar.dart';
 
 class MainPage extends StatefulWidget {
-
   static const String route = "/";
 
-  MainPage({Key? key}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-
+class _MainPageState extends State<MainPage> with BaseWidget {
   late PageController _pageController;
 
-  final controller = DIHandlerImp().get<MainController>();
+  late MainController controller;
 
   @override
   void initState() {
+    controller = inject.get()..init();
     _pageController = PageController();
     super.initState();
   }
@@ -34,29 +32,34 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ConnectionAppBar(
-        stream: controller.connectionController.stream,
-      ),
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: _pageController,
-        children: getPages(),
-      ),
-      floatingActionButton: AirplaneModeFloating(
-        stream: controller.airplaneController.stream
-      )
-    );
+        appBar: ConnectionAppBar(
+          stream: controller.connectionController.stream,
+        ),
+        body: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _pageController,
+          children: getPages(),
+        ),
+        floatingActionButton:
+            AirplaneModeFloating(stream: controller.airplaneController.stream));
   }
 
-
-  List<Widget> getPages(){
+  List<Widget> getPages() {
     return [
-      WelcomePage(pageController: _pageController,),
+      WelcomePage(
+        pageController: _pageController,
+      ),
       ConnectionPage(pageController: _pageController),
       AirplanePage(pageController: _pageController),
-      HomePage(pageController: _pageController,)
+      HomePage(
+        pageController: _pageController,
+      )
     ];
   }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 }
-
-

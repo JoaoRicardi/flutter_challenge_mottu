@@ -1,0 +1,27 @@
+{
+  "name": "flutter_challenge",
+  "version": "1.0.0",
+  "description": "Um projeto flutter para avaliar os conhecimnetos do candidato sobre o framework e padroes de projeto.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoaoRicardi/flutter_challenge_template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoaoRicardi/flutter_challenge_template/issues"
+  },
+  "homepage": "https://github.com/JoaoRicardi/flutter_challenge_template#readme",
+  "devDependencies": {
+    "lefthook": "^1.1.1"
+  }
+}

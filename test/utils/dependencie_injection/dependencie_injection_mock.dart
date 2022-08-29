@@ -12,34 +12,35 @@ import 'package:get_it/get_it.dart';
 import '../mock/repository/repository_mocks.dart';
 
 class DIMock {
-
   final GetIt getIt = GetIt.I;
 
-  registerMocks(){
-    _injectPresentationModule();
+  registerMocks() {
     _injectCoreModule();
+    _injectPresentationModule();
   }
 
   _injectPresentationModule() {
-    getIt.registerLazySingleton<ConnectionController>(() => ConnectionController(getIt.get(instanceName: ConnectivityStreamChannel.instanceName)));
-    getIt.registerLazySingleton<AirplaneController>(() => AirplaneController(getIt.get(instanceName: AirPlaneStreamChannel.instanceName)));
-    getIt.registerLazySingleton<MainController>(() => MainController(
+    getIt.registerLazySingleton<ConnectionController>(() =>
+        ConnectionController(
+            getIt.get(instanceName: ConnectivityStreamChannel.instanceName)));
+    getIt.registerLazySingleton<AirplaneController>(() => AirplaneController(
+        getIt.get(instanceName: AirPlaneStreamChannel.instanceName)));
+    getIt.registerFactory<MainController>(() => MainController(
         getIt.get(instanceName: ConnectivityStreamChannel.instanceName),
-        getIt.get(instanceName: AirPlaneStreamChannel.instanceName)
-    ));
-
+        getIt.get(instanceName: AirPlaneStreamChannel.instanceName)));
   }
-
 
   _injectCoreModule() {
     getIt.registerLazySingleton<INavigationHandler>(
-            () => NavigationHandlerImp());
-    getIt.registerLazySingleton<IAirPlaneMethodChannel>(() => AirplaneModeMethodChannelMock());
-    getIt.registerLazySingleton<BaseStream<AirplaneMode?>>(() => AirPlaneStreamChannelMock(), instanceName: AirPlaneStreamChannel.instanceName);
+        () => NavigationHandlerImp());
+    getIt.registerLazySingleton<IAirPlaneMethodChannel>(
+        () => AirplaneModeMethodChannelMock());
+    getIt.registerLazySingleton<BaseStream<AirplaneMode?>>(
+        () => AirPlaneStreamChannelMock(),
+        instanceName: AirPlaneStreamChannel.instanceName);
 
-    getIt.registerLazySingleton<BaseStream<Connection?>>(() => ConnectionStreamChannelMock(),
+    getIt.registerLazySingleton<BaseStream<Connection?>>(
+        () => ConnectionStreamChannelMock(),
         instanceName: ConnectivityStreamChannel.instanceName);
   }
-
-
 }

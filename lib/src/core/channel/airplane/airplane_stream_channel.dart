@@ -1,67 +1,58 @@
-
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_challenge/src/core/channel/airplane/airplane_method_channel.dart';
 import 'package:flutter_challenge/src/core/channel/base/base_stream.dart';
 
-class AirPlaneStreamChannel implements BaseStream<AirplaneMode?>{
-
+class AirPlaneStreamChannel implements BaseStream<AirplaneMode?> {
   final IAirPlaneMethodChannel methodChannel;
 
   static const String instanceName = 'airplane_stream';
 
   AirPlaneStreamChannel(this.methodChannel);
 
-
-  @override
-  StreamController<AirplaneMode?> controller = StreamController();
-
-  @override
-  StreamSubscription? subscription;
+  final StreamController<AirplaneMode?> _controller = StreamController();
 
   bool _alreadyInit = false;
 
   @override
-  Stream stream = const EventChannel("flutter_challenge/airplaneMode")
+  StreamSubscription? subscription;
+
+  final Stream _stream = const EventChannel("flutter_challenge/airplaneMode")
       .receiveBroadcastStream()
       .distinct();
-
 
   @override
   reset() async {
     await methodChannel.stopListeningToAirPlaneStatus();
-    controller.sink.add(null);
+    _controller.sink.add(null);
     subscription?.pause();
   }
 
   @override
   listenTo() async {
     await methodChannel.startListeningToAirPlaneStatus();
-    if(_alreadyInit){
+    if (_alreadyInit) {
       subscription?.resume();
-    }
-    else{
-      subscription = stream.listen(null);
+    } else {
+      subscription = _stream.listen(null);
 
       subscription?.onData((data) {
-        if(data != null && data is bool){
-          controller.sink.add(data ? AirplaneMode.ON : AirplaneMode.OFF);
-        }
-        else{
-          controller.sink.add(AirplaneMode.DESCONHECIDO);
+        if (data != null && data is bool) {
+          _controller.sink.add(data ? AirplaneMode.ON : AirplaneMode.OFF);
+        } else {
+          _controller.sink.add(AirplaneMode.DESCONHECIDO);
         }
       });
-
     }
 
     _alreadyInit = true;
   }
 
+  @override
+  Stream<AirplaneMode?> getStream() {
+    return _controller.stream;
+  }
 }
 
-enum AirplaneMode{
-  ON,
-  OFF,
-  DESCONHECIDO
-}
+enum AirplaneMode { ON, OFF, DESCONHECIDO }

@@ -27,6 +27,8 @@ dependencies:
   mobx: ^2.0.7
   flutter_mobx: ^2.0.5
 
+  rxdart: ^0.27.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -37,6 +39,7 @@ dev_dependencies:
   mobx_codegen: ^2.0.6
   #test
   mocktail: 0.1.4
+
 
 
 flutter:

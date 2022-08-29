@@ -7,7 +7,6 @@ part 'connection_controller.g.dart';
 class ConnectionController = _ConnectionController with _$ConnectionController;
 
 abstract class _ConnectionController with Store {
-
   final BaseStream<Connection?> _connectivityStreamHandler;
 
   _ConnectionController(this._connectivityStreamHandler);
@@ -16,22 +15,13 @@ abstract class _ConnectionController with Store {
   bool connectionAuth = false;
 
   @action
-  changeStatus(bool value){
-     connectionAuth = value;
+  changeStatus(bool value) {
+    connectionAuth = value;
 
-     if(connectionAuth){
-       _connectivityStreamHandler.listenTo();
-     }
-     else{
-       _connectivityStreamHandler.reset();
-     }
-    // if(_connectivityStreamHandler.alreadyInit){
-    //   _connectivityStreamHandler.reset();
-    // }
-    // else{
-    //   _connectivityStreamHandler.listenTo();
-    // }
+    if (connectionAuth) {
+      _connectivityStreamHandler.listenTo();
+    } else {
+      _connectivityStreamHandler.reset();
+    }
   }
-
-
 }

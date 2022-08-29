@@ -39,9 +39,9 @@ class AirPlaneStreamChannel implements BaseStream<AirplaneMode?> {
 
       subscription?.onData((data) {
         if (data != null && data is bool) {
-          _controller.sink.add(data ? AirplaneMode.ON : AirplaneMode.OFF);
+          _controller.sink.add(data ? AirplaneMode.on : AirplaneMode.off);
         } else {
-          _controller.sink.add(AirplaneMode.DESCONHECIDO);
+          _controller.sink.add(AirplaneMode.desconhecido);
         }
       });
     }
@@ -55,4 +55,4 @@ class AirPlaneStreamChannel implements BaseStream<AirplaneMode?> {
   }
 }
 
-enum AirplaneMode { ON, OFF, DESCONHECIDO }
+enum AirplaneMode { on, off, desconhecido }

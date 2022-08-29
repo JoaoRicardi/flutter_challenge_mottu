@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/src/core/base/base_widget.dart';
-import 'package:flutter_challenge/src/core/di/di_handler_imp.dart';
 import 'package:flutter_challenge/src/presentation/modules/airplane/airplane_page.dart';
 import 'package:flutter_challenge/src/presentation/modules/connection/controller/connection_controller.dart';
 import 'package:flutter_challenge/src/presentation/widgtes/asset_handler.dart';
 import 'package:flutter_challenge/src/presentation/widgtes/button.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class ConnectionPage extends StatelessWidget with BaseWidget {
+class ConnectionPage extends StatefulWidget {
   static const int position = 1;
 
   final PageController pageController;
 
-  ConnectionPage({Key? key, required this.pageController}) : super(key: key);
+  const ConnectionPage({Key? key, required this.pageController})
+      : super(key: key);
 
-  ConnectionController controller = DIHandlerImp().get();
+  @override
+  State<ConnectionPage> createState() => _ConnectionPageState();
+}
+
+class _ConnectionPageState extends State<ConnectionPage> with BaseWidget {
+  late ConnectionController controller;
+
+  @override
+  void initState() {
+    controller = inject.get();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +79,7 @@ class ConnectionPage extends StatelessWidget with BaseWidget {
         label: "Próximo",
         isOnBottomNav: true,
         onTap: () async {
-          pageController.jumpToPage(AirplanePage.position);
+          widget.pageController.jumpToPage(AirplanePage.position);
         },
       ),
     );

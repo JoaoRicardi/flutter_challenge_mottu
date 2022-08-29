@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/src/core/channel/airplane/airplane_stream_channel.dart';
 
-extension AirPlaneModeConfig on AirplaneMode{
-
+extension AirPlaneModeConfig on AirplaneMode {
   Widget getIcon() {
     switch (this) {
-      case AirplaneMode.ON:
-        return const Icon(Icons.airplanemode_active, color: Colors.white,);
-      case AirplaneMode.OFF:
-        return const Icon(Icons.airplanemode_inactive_outlined, color: Colors.black,);
-      case AirplaneMode.DESCONHECIDO:
-        return const Icon(Icons.warning, color: Colors.black,);
+      case AirplaneMode.on:
+        return const Icon(
+          Icons.airplanemode_active,
+          color: Colors.white,
+        );
+      case AirplaneMode.off:
+        return const Icon(
+          Icons.airplanemode_inactive_outlined,
+          color: Colors.black,
+        );
+      case AirplaneMode.desconhecido:
+        return const Icon(
+          Icons.warning,
+          color: Colors.black,
+        );
       default:
         return const Icon(Icons.cancel);
     }
@@ -18,11 +26,11 @@ extension AirPlaneModeConfig on AirplaneMode{
 
   Color getColor() {
     switch (this) {
-      case AirplaneMode.ON:
+      case AirplaneMode.on:
         return Colors.orange;
-      case AirplaneMode.OFF:
+      case AirplaneMode.off:
         return Colors.grey;
-      case AirplaneMode.DESCONHECIDO:
+      case AirplaneMode.desconhecido:
         return Colors.yellow;
       default:
         return Colors.red;

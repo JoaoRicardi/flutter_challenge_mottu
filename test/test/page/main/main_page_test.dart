@@ -27,7 +27,7 @@ main() {
       when(() => connectionStream.getStream())
           .thenAnswer((_) => Stream.fromIterable([]));
       when(() => airplaneStream.getStream())
-          .thenAnswer((_) => Stream.fromIterable([AirplaneMode.ON]));
+          .thenAnswer((_) => Stream.fromIterable([AirplaneMode.on]));
 
       await tester.pumpWidget(
         TestUtils.buildTestableWidget(
@@ -57,7 +57,7 @@ main() {
       when(() => connectionStream.getStream())
           .thenAnswer((_) => Stream.fromIterable([]));
       when(() => airplaneStream.getStream())
-          .thenAnswer((_) => Stream.fromIterable([AirplaneMode.OFF]));
+          .thenAnswer((_) => Stream.fromIterable([AirplaneMode.off]));
 
       await tester.pumpWidget(
         TestUtils.buildTestableWidget(

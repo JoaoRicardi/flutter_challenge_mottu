@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/src/core/base/base_widget.dart';
-import 'package:flutter_challenge/src/core/di/di_handler_imp.dart';
 import 'package:flutter_challenge/src/presentation/modules/airplane/controller/airplane_controller.dart';
 import 'package:flutter_challenge/src/presentation/modules/home/home_page.dart';
 import 'package:flutter_challenge/src/presentation/widgtes/asset_handler.dart';
 import 'package:flutter_challenge/src/presentation/widgtes/button.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class AirplanePage extends StatelessWidget with BaseWidget {
+class AirplanePage extends StatefulWidget {
   static const int position = 2;
 
   final PageController pageController;
 
-  AirplanePage({Key? key, required this.pageController}) : super(key: key);
+  const AirplanePage({Key? key, required this.pageController})
+      : super(key: key);
 
-  AirplaneController controller = DIHandlerImp().get<AirplaneController>();
+  @override
+  State<AirplanePage> createState() => _AirplanePageState();
+}
+
+class _AirplanePageState extends State<AirplanePage> with BaseWidget {
+  late AirplaneController controller;
+
+  @override
+  void initState() {
+    controller = inject.get<AirplaneController>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +79,7 @@ class AirplanePage extends StatelessWidget with BaseWidget {
         label: "Próximo",
         isOnBottomNav: true,
         onTap: () async {
-          pageController.jumpToPage(HomePage.position);
+          widget.pageController.jumpToPage(HomePage.position);
         },
       ),
     );

@@ -1,12 +1,7 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_challenge/src/core/channel/airplane/airplane_method_channel.dart';
-import 'package:flutter_challenge/src/core/channel/airplane/airplane_stream_channel.dart';
 import 'package:flutter_challenge/src/core/channel/base/base_stream.dart';
 import 'package:flutter_challenge/src/core/channel/connectivity/connectivity_stream_channel.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-
-import '../../../../utils/mock/repository/repository_mocks.dart';
 import '../../../../utils/utils.dart';
 
 void main() {

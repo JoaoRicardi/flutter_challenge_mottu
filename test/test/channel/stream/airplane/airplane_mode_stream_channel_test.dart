@@ -32,6 +32,8 @@ void main() {
           await ServicesBinding.instance?.defaultBinaryMessenger
               .handlePlatformMessage(_channel.name,
                   _channel.codec.encodeSuccessEnvelope(true), (_) {});
+        } else {
+          return null;
         }
       });
 
@@ -43,7 +45,7 @@ void main() {
 
       expect(res, true);
 
-      expect(streamChannel.getStream(), emitsInOrder([AirplaneMode.ON]));
+      expect(streamChannel.getStream(), emitsInOrder([AirplaneMode.on]));
     });
 
     testWidgets('Test airplane mode setting to offline',
@@ -57,6 +59,8 @@ void main() {
           await ServicesBinding.instance?.defaultBinaryMessenger
               .handlePlatformMessage(_channel.name,
                   _channel.codec.encodeSuccessEnvelope(false), (_) {});
+        } else {
+          return null;
         }
       });
 
@@ -68,7 +72,7 @@ void main() {
 
       expect(res, false);
 
-      expect(streamChannel.getStream(), emitsInOrder([AirplaneMode.OFF]));
+      expect(streamChannel.getStream(), emitsInOrder([AirplaneMode.off]));
     });
 
     testWidgets('Test airplane mode setting to desconhecido',
@@ -82,6 +86,8 @@ void main() {
           await ServicesBinding.instance?.defaultBinaryMessenger
               .handlePlatformMessage(_channel.name,
                   _channel.codec.encodeSuccessEnvelope("Unknow"), (_) {});
+        } else {
+          return null;
         }
       });
 
@@ -94,7 +100,7 @@ void main() {
       expect(res, "Unknow");
 
       expect(
-          streamChannel.getStream(), emitsInOrder([AirplaneMode.DESCONHECIDO]));
+          streamChannel.getStream(), emitsInOrder([AirplaneMode.desconhecido]));
     });
   });
 }

@@ -1,4 +1,8 @@
+import 'dart:async';
+
+import 'package:flutter_challenge/src/core/channel/airplane/airplane_stream_channel.dart';
 import 'package:flutter_challenge/src/core/channel/base/base_stream.dart';
+import 'package:flutter_challenge/src/core/channel/connectivity/connectivity_stream_channel.dart';
 import 'package:mobx/mobx.dart';
 
 part 'home_controller.g.dart';
@@ -7,8 +11,8 @@ class HomeController = _HomeController with _$HomeController;
 
 abstract class _HomeController with Store {
 
-  final BaseStream _connectivityStreamHandler;
-  final BaseStream _airplaneStreamHandler;
+  final BaseStream<Connection?> _connectivityStreamHandler;
+  final BaseStream<AirplaneMode?> _airplaneStreamHandler;
 
   _HomeController(
       this._connectivityStreamHandler,
@@ -23,7 +27,6 @@ abstract class _HomeController with Store {
 
   @observable
   bool isConnectionEnable = false;
-
 
   @action
   changeAirPlaneStatus(bool value){

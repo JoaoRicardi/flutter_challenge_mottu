@@ -5,7 +5,6 @@ import 'package:flutter_challenge/src/presentation/modules/airplane/airplane_pag
 import 'package:flutter_challenge/src/presentation/modules/connection/controller/connection_controller.dart';
 import 'package:flutter_challenge/src/presentation/widgtes/asset_handler.dart';
 import 'package:flutter_challenge/src/presentation/widgtes/button.dart';
-import 'package:flutter_challenge/src/presentation/widgtes/configuration_item.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ConnectionPage extends StatelessWidget with BaseWidgetStateless{
@@ -19,7 +18,7 @@ class ConnectionPage extends StatelessWidget with BaseWidgetStateless{
     required this.pageController
   }) : super(key: key);
 
-  get controller => get<ConnectionController>();
+  ConnectionController controller =DIHandlerImp().get();
 
   @override
   Widget build(BuildContext context) {
@@ -28,41 +27,48 @@ class ConnectionPage extends StatelessWidget with BaseWidgetStateless{
         padding: const EdgeInsets.symmetric(
             horizontal: 20
         ),
-        child: Column(
-          children: [
-            MottuAssetHandler(
-              assset: constants.assets.signal,
-              height: MediaQuery.of(context).size.width,
-            ),
-            const Text(
-              'Permitir que o app acessa dados de conexão ?',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              MottuAssetHandler(
+                assset: constants.assets.signal,
+                height: MediaQuery.of(context).size.width,
               ),
-            ),
-            const SizedBox(height: 24,),
-            const Text(
-              'Caso habilitado, caso o tipo de conexão seja alterado iremos exibir pra você.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400
+              const Text(
+                'Permitir que o app acessa dados de conexão ?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w500
+                ),
               ),
-            ),
-            const Spacer(),
-            Observer(
-                builder: (context) {
-                  return ConfigurationItem(
-                    label: 'Permito o compatilhamento de dados de rede',
-                    value: controller.connectionAuth,
-                    onChange: (value) => controller.changeStatus(value),
-                  );
-                }
-            ),
-            const Spacer(),
-          ],
+              const SizedBox(height: 24,),
+              const Text(
+                'Caso habilitado, caso o tipo de conexão seja alterado iremos exibir pra você.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400
+                ),
+              ),
+              const SizedBox(height: 32,),
+              Observer(
+                  builder: (context) {
+                    return Row(
+                      children: [
+                        const Expanded(child: Text('Permito o compatilhamento de dados de rede')),
+                        Switch(
+                          key: const Key('connection_auth_switch'),
+                          value: controller.connectionAuth,
+                          onChanged: (value) => controller.changeStatus(value)
+                        )
+                      ],
+                    );
+                  }
+              ),
+              const SizedBox(height: 32,),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: MottuButton(

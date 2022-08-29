@@ -21,18 +21,9 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with BaseWidget<HomeController>{
+class _HomePageState extends State<HomePage> {
 
-
-  @override
-  late HomeController controller;
-
-  @override
-  void initState() {
-    controller = inject.get();
-    super.initState();
-  }
-
+  HomeController controller = DIHandlerImp().get();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +36,7 @@ class _HomePageState extends State<HomePage> with BaseWidget<HomeController>{
                 builder: (context) {
                   return ConfigurationItem(
                     label: 'Permito o compatilhamento de dados de rede',
-                    value: controller.isConnectionEnable,
+                    currentValue: controller.isConnectionEnable,
                     onChange: (value) => controller.changeConnectivityStatus(value),
                   );
                 }
@@ -54,33 +45,28 @@ class _HomePageState extends State<HomePage> with BaseWidget<HomeController>{
                 builder: (context) {
                   return ConfigurationItem(
                     label: 'Permito o compatilhamento sobre o modo do celular.',
-                    value: controller.isAirplaneEnable,
+                    currentValue: controller.isAirplaneEnable,
                     onChange: (value) => controller.changeAirPlaneStatus(value),
                   );
                 }
             ),
-
           ],
         ),
       ),
     );
   }
 }
-
-abstract class BasePage<T extends Object> {
-   late T controller;
-}
-
-class BaseWidget<T extends Object> implements BasePage<T> {
-  IDIHandler inject = DIHandlerImp();
-
-  @override
-  late T controller;
-
-
-
-
-}
+//
+// abstract class BasePage<T extends Object> {
+//    late T controller;
+// }
+//
+// class BaseWidget<T extends Object> implements BasePage<T> {
+//   IDIHandler inject = DIHandlerImp();
+//
+//   @override
+//   late T controller;
+// }
 
 
 

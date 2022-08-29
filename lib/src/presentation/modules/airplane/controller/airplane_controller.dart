@@ -1,3 +1,4 @@
+import 'package:flutter_challenge/src/core/channel/airplane/airplane_stream_channel.dart';
 import 'package:flutter_challenge/src/core/channel/base/base_stream.dart';
 import 'package:mobx/mobx.dart';
 
@@ -7,7 +8,7 @@ class AirplaneController = _AirplaneController with _$AirplaneController;
 
 abstract class _AirplaneController with Store {
 
-  final BaseStream _airplaneStreamHandler;
+  final BaseStream<AirplaneMode?> _airplaneStreamHandler;
 
   @observable
   bool airplaneAuth = false;
@@ -17,7 +18,6 @@ abstract class _AirplaneController with Store {
   @action
   changeStatus(bool value){
     airplaneAuth = value;
-
     if(airplaneAuth){
       _airplaneStreamHandler.listenTo();
     }

@@ -24,4 +24,7 @@ class TestUtils {
       ));
 
 
+  static T instanceOf<T extends Object>({String? instanceName}){
+    return _diHandler.getIt<T>(instanceName: instanceName);
+  }
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ConfigurationItem extends StatelessWidget {
-  final bool value;
+  final bool currentValue;
   final String label;
   final Function(bool) onChange;
 
   const ConfigurationItem(
       {Key? key,
-      required this.value,
+      required this.currentValue,
       required this.label,
       required this.onChange})
       : super(key: key);
@@ -17,7 +17,10 @@ class ConfigurationItem extends StatelessWidget {
     return Row(
       children: [
         Expanded(child: Text(label)),
-        Switch(value: value, onChanged: (value) => onChange(value))
+        Switch(
+            value: currentValue,
+            onChanged: onChange
+        )
       ],
     );
   }

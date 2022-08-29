@@ -43,9 +43,9 @@ class DIHandlerImp implements IDIHandler {
 
     _getIt
         .registerFactory<IAirPlaneMethodChannel>(() => AirPlaneMethodChannel());
-    _getIt.registerLazySingleton<BaseStream>(() => ConnectivityStreamChannel(),
+    _getIt.registerLazySingleton<BaseStream<Connection?>>(() => ConnectivityStreamChannel(),
         instanceName: ConnectivityStreamChannel.instanceName);
-    _getIt.registerLazySingleton<BaseStream>(() => AirPlaneStreamChannel(_getIt.get()),
+    _getIt.registerLazySingleton<BaseStream<AirplaneMode?>>(() => AirPlaneStreamChannel(_getIt.get()),
         instanceName: AirPlaneStreamChannel.instanceName);
   }
 
